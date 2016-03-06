@@ -18,7 +18,7 @@ class CheckException extends \Exception
      */
     public function __construct($message = '', $code = null, \Exception $previous = null)
     {
-        if ($code == 0) {
+        if (0 == $code) {
             $code = -1;
         }
         parent::__construct(static::EXCEPTION_NAME.": ".$message, $code, $previous);
