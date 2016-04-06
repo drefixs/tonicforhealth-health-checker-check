@@ -39,7 +39,7 @@ interface CheckInterface
     public function getCheckNode();
 
     /**
-     * @return null
+     * @return null|string
      */
     public function getIndent();
 

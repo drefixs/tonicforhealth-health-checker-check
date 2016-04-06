@@ -69,7 +69,7 @@ abstract class AbstractCheck implements CheckInterface
     }
 
     /**
-     * @return null
+     * @return null|string
      */
     public function getIndent()
     {
