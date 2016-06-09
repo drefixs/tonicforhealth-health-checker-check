@@ -17,6 +17,40 @@ $ composer require tonicforhealth/health-checker-check
 ```php
 <?php
 
-echo 'Some php code with examples';
+use TonicHealthCheck\Check\AbstractCheck;
 
+class WeekendCheck extends AbstractCheck
+{
+    const GROUP = 'date';
+    const COMPONENT = 'weekend';
+    const CHECK = 'weekend-date-check';
+
+    public function __construct($checkNode)
+    {
+        parent::__construct($checkNode);
+    }
+
+    /**
+     * @return bool
+     */
+    public function check()
+    {
+        if ($this->isNotWeekend(date())) {
+            throw new CheckException('Unfortunately weekend isn\'t today.');
+        }
+    }
+
+    protected function isNotWeekend($date)
+    {
+        return date('N', strtotime($date)) >= 6;
+    }
+}
+
+$WeekendCheckI = new WeekendCheck('testnode');
+
+$result = $WeekendCheckI->performCheck();
+
+if (!$result->isOk()) {
+    echo $result->getError()->getMessage();
+}
 ```
