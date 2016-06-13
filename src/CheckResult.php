@@ -4,7 +4,6 @@ namespace TonicHealthCheck\Check;
 
 /**
  * Class CheckResult
- * @package TonicHealthCheck\Check
  */
 class CheckResult
 {
@@ -22,6 +21,7 @@ class CheckResult
 
     /**
      * CheckResult constructor.
+     *
      * @param int            $status
      * @param CheckException $error
      */
@@ -42,6 +42,7 @@ class CheckResult
     /**
      * @param int            $status
      * @param CheckException $error
+     *
      * @return CheckResult
      */
     public static function errorResult($status, CheckException $error)
@@ -88,5 +89,4 @@ class CheckResult
     {
         $this->error = $error;
     }
-
 }

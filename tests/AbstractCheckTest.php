@@ -6,7 +6,6 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * Class AbstractCheckTest
- * @package TonicHealthCheck\Tests\Check
  */
 class AbstractCheckTest extends PHPUnit_Framework_TestCase
 {
@@ -30,6 +29,5 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
         $this->assertNull($checkConcreteMock->getLastCheckResult());
 
         $this->assertRegExp('#'.$checkConcreteMock->getCheckNode().'.'.$checkConcreteMock->getCheckGroup().'.'.$checkConcreteMock->getCheckComponent().'.'.$checkConcreteMock->getCheckIdent().'#', $checkConcreteMock->getIndent());
-
     }
 }

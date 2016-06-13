@@ -6,7 +6,6 @@ use TonicHealthCheck\Check\AbstractCheckCollection;
 
 /**
  * Class CheckCollectionConcreteMock
- * @package TonicHealthCheck\Tests\Check
  */
 class CheckCollectionConcreteMock extends AbstractCheckCollection
 {

@@ -4,7 +4,6 @@ namespace TonicHealthCheck\Check;
 
 /**
  * Class CheckException
- * @package TonicHealthCheck\Exception
  */
 class CheckException extends \Exception
 {
@@ -12,6 +11,7 @@ class CheckException extends \Exception
 
     /**
      * HttpCheckException constructor.
+     *
      * @param string          $message
      * @param null|int        $code
      * @param null|\Exception $previous
@@ -21,6 +21,6 @@ class CheckException extends \Exception
         if (0 === $code || null === $code) {
             $code = -1;
         }
-        parent::__construct(static::EXCEPTION_NAME.": ".$message, $code, $previous);
+        parent::__construct(static::EXCEPTION_NAME.': '.$message, $code, $previous);
     }
 }

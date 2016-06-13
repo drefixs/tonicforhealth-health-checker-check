@@ -2,21 +2,15 @@
 
 namespace TonicHealthCheck\Check;
 
-use Stomp\StatefulStomp as StatefulStomp;
-use Stomp\Transport\Message;
-use Stomp\Exception\StompException;
-use TonicHealthCheck\Check\ActiveMQ\ActiveMQCheckException;
-
 /**
  * Class AbstractCheck
- * @package TonicHealthCheck\Checker
  */
 interface CheckInterface
 {
     const CHECK_NODE_DEFAULT = 'main';
     const COMPONENT = 'noname';
-    const GROUP     = 'all';
-    const CHECK     = 'main';
+    const GROUP = 'all';
+    const CHECK = 'main';
 
     /**
      * @return string

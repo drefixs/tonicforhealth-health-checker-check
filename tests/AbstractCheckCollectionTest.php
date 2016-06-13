@@ -6,7 +6,6 @@ use PHPUnit_Framework_TestCase;
 
 /**
  * Class AbstractCheckCollectionTest
- * @package TonicHealthCheck\Tests\Check
  */
 class AbstractCheckCollectionTest extends PHPUnit_Framework_TestCase
 {
@@ -25,6 +24,7 @@ class AbstractCheckCollectionTest extends PHPUnit_Framework_TestCase
 
     /**
      * test add other type of the instance
+     *
      * @expectedException \Collections\Exceptions\InvalidArgumentException
      */
     public function testCollectionFail()

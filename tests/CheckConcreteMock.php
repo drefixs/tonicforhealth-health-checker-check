@@ -6,13 +6,12 @@ use TonicHealthCheck\Check\AbstractCheck;
 
 /**
  * Class CheckConcreteMock
- * @package TonicHealthCheck\Tests\Check
  */
 class CheckConcreteMock extends AbstractCheck
 {
-    const GROUP     = 'mock';
+    const GROUP = 'mock';
     const COMPONENT = 'Concrete';
-    const CHECK     = 'concrete-mock-check';
+    const CHECK = 'concrete-mock-check';
 
     public function __construct($checkNode)
     {

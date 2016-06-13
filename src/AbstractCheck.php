@@ -2,14 +2,8 @@
 
 namespace TonicHealthCheck\Check;
 
-use Stomp\StatefulStomp as StatefulStomp;
-use Stomp\Transport\Message;
-use Stomp\Exception\StompException;
-use TonicHealthCheck\Check\ActiveMQ\ActiveMQCheckException;
-
 /**
  * Class AbstractCheck
- * @package TonicHealthCheck\Checker
  */
 abstract class AbstractCheck implements CheckInterface
 {
@@ -25,6 +19,7 @@ abstract class AbstractCheck implements CheckInterface
 
     /**
      * AbstractCheck constructor.
+     *
      * @param null $checkNode
      */
     public function __construct($checkNode = null)
@@ -42,7 +37,6 @@ abstract class AbstractCheck implements CheckInterface
         return static::COMPONENT;
     }
 
-
     /**
      * @return string
      */
@@ -50,7 +44,6 @@ abstract class AbstractCheck implements CheckInterface
     {
         return static::GROUP;
     }
-
 
     /**
      * @return null|string
