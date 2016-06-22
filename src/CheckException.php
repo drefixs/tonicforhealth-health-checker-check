@@ -2,6 +2,8 @@
 
 namespace TonicHealthCheck\Check;
 
+use Exception;
+
 /**
  * Class CheckException
  */
@@ -22,5 +24,32 @@ class CheckException extends \Exception
             $code = -1;
         }
         parent::__construct(static::EXCEPTION_NAME.': '.$message, $code, $previous);
+    }
+
+    /**
+     * @param Exception $e
+     * @return string
+     */
+    protected static function getDebug(Exception $e, $depth = -1)
+    {
+        $errorDebugMsg = sprintf (
+            "ERROR CODE:%d\nERROR FILE:%s\nERROR MESSAGE:%sERROR TRACE:%s",
+            $e->getCode (),
+            $e->getFile (),
+            $e->getMessage (),
+            $e->getTraceAsString ()
+        );
+
+        if( ($depth ==-1 || $depth >0 ) && $e->getPrevious() instanceof Exception){
+            $depth -= $depth>0?1:0;
+            $errorDebugMsg = sprintf ('%s\n\nPRIVIOUS ERROR:\n', static::getDebug ($e->getPrevious()));
+        }
+
+        return $errorDebugMsg;
+    }
+
+    public function getNestedDebug($depth = -1)
+    {
+        return static::getDebug($this, $depth);
     }
 }
