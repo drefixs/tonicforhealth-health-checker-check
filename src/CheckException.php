@@ -2,8 +2,10 @@
 
 namespace TonicHealthCheck\Check;
 
+use Exception;
+
 /**
- * Class CheckException
+ * Class CheckException.
  */
 class CheckException extends \Exception
 {
@@ -25,29 +27,40 @@ class CheckException extends \Exception
     }
 
     /**
-     * @param Exception $e
+     * @param int $depth
+     *
      * @return string
      */
-    protected static function getDebug(Exception $e, $depth = -1)
-    {
-        $errorDebugMsg = sprintf (
-            "ERROR CODE:%d\nERROR FILE:%s\nERROR MESSAGE:%sERROR TRACE:%s",
-            $e->getCode (),
-            $e->getFile (),
-            $e->getMessage (),
-            $e->getTraceAsString ()
-        );
-
-        if( ($depth ==-1 || $depth >0 ) && $e->getPrevious() instanceof Exception){
-            $depth -= $depth>0?1:0;
-            $errorDebugMsg = sprintf ('%s\n\nPRIVIOUS ERROR:\n', static::getDebug ($e->getPrevious()));
-        }
-
-        return $errorDebugMsg;
-    }
-
     public function getNestedDebug($depth = -1)
     {
         return static::getDebug($this, $depth);
+    }
+
+    /**
+     * @param Exception $exception
+     *
+     * @return string
+     */
+    protected static function getDebug(Exception $exception, $depth = -1)
+    {
+        $errorDebugMsg = sprintf(
+            "ERROR CLASS:%s\nERROR CODE:%d\nERROR FILE:%s\nERROR MESSAGE:%s\nERROR TRACE:\n%s",
+            get_class($exception),
+            $exception->getCode(),
+            $exception->getFile(),
+            $exception->getMessage(),
+            $exception->getTraceAsString()
+        );
+
+        if (($depth == -1 || $depth > 0) && $exception->getPrevious() instanceof Exception) {
+            $depth -= $depth > 0 ? 1 : 0;
+            $errorDebugMsg = sprintf(
+                "%s\n\nPRIVIOUS EXCEPTION:\n%s",
+                $errorDebugMsg,
+                static::getDebug($exception->getPrevious(), $depth)
+            );
+        }
+
+        return $errorDebugMsg;
     }
 }

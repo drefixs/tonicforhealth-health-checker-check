@@ -15,7 +15,7 @@ class CheckResult
     protected $status;
 
     /**
-     * @var CheckException
+     * @var CheckException|null
      */
     protected $error;
 
@@ -59,7 +59,7 @@ class CheckResult
     }
 
     /**
-     * @return CheckException
+     * @return CheckException|null
      */
     public function getError()
     {
@@ -83,7 +83,7 @@ class CheckResult
     }
 
     /**
-     * @param CheckException $error
+     * @param CheckException|null $error
      */
     protected function setError(CheckException $error = null)
     {
