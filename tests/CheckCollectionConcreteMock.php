@@ -5,7 +5,7 @@ namespace TonicHealthCheck\Tests\Check;
 use TonicHealthCheck\Check\AbstractCheckCollection;
 
 /**
- * Class CheckCollectionConcreteMock
+ * Class CheckCollectionConcreteMock.
  */
 class CheckCollectionConcreteMock extends AbstractCheckCollection
 {

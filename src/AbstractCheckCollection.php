@@ -5,7 +5,7 @@ namespace TonicHealthCheck\Check;
 use Collections\Collection;
 
 /**
- * Class AbstractCheckCollection
+ * Class AbstractCheckCollection.
  */
 abstract class AbstractCheckCollection extends Collection implements CheckCollectionInterface
 {

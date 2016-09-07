@@ -5,10 +5,8 @@ namespace TonicHealthCheck\Tests\Check;
 use TonicHealthCheck\Check\CheckException;
 
 /**
- * Class ConcreteCheckException
- * @package TonicHealthCheck\Tests\Check
+ * Class ConcreteCheckException.
  */
 class ConcreteCheckException extends CheckException
 {
-
 }

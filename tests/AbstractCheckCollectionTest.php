@@ -5,12 +5,12 @@ namespace TonicHealthCheck\Tests\Check;
 use PHPUnit_Framework_TestCase;
 
 /**
- * Class AbstractCheckCollectionTest
+ * Class AbstractCheckCollectionTest.
  */
 class AbstractCheckCollectionTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * test add is ok
+     * test add is ok.
      */
     public function testCollectionOk()
     {
@@ -23,7 +23,7 @@ class AbstractCheckCollectionTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test add other type of the instance
+     * test add other type of the instance.
      *
      * @expectedException \Collections\Exceptions\InvalidArgumentException
      */

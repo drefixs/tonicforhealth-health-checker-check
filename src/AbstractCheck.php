@@ -3,7 +3,7 @@
 namespace TonicHealthCheck\Check;
 
 /**
- * Class AbstractCheck
+ * Class AbstractCheck.
  */
 abstract class AbstractCheck implements CheckInterface
 {
@@ -13,7 +13,7 @@ abstract class AbstractCheck implements CheckInterface
     protected $checkNode = self::CHECK_NODE_DEFAULT;
 
     /**
-     * @var CheckResult
+     * @var ResultInterface
      */
     protected $lastCheckResult = null;
 
@@ -70,7 +70,15 @@ abstract class AbstractCheck implements CheckInterface
     }
 
     /**
-     * @return CheckResult
+     * @return null|string
+     */
+    public function getLabel()
+    {
+        return $this->getIndent();
+    }
+
+    /**
+     * @return ResultInterface
      */
     public function getLastCheckResult()
     {
@@ -78,15 +86,15 @@ abstract class AbstractCheck implements CheckInterface
     }
 
     /**
-     * @return CheckResult
+     * @return ResultInterface
      */
     public function performCheck()
     {
         try {
             $this->check();
-            $checkResult = CheckResult::okResult();
+            $checkResult = new Success();
         } catch (CheckException $error) {
-            $checkResult = CheckResult::errorResult($error->getCode(), $error);
+            $checkResult = new Failure($error->getCode(), $error);
         }
 
         $this->setLastCheckResult($checkResult);
@@ -103,9 +111,9 @@ abstract class AbstractCheck implements CheckInterface
     }
 
     /**
-     * @param CheckResult $lastCheckResult
+     * @param ResultInterface $lastCheckResult
      */
-    protected function setLastCheckResult(CheckResult $lastCheckResult)
+    protected function setLastCheckResult(ResultInterface $lastCheckResult)
     {
         $this->lastCheckResult = $lastCheckResult;
     }

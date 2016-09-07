@@ -40,4 +40,14 @@ class CheckConcreteMock extends AbstractCheck
             throw $this->exception;
         }
     }
+
+    /**
+     * Return a label describing this test instance.
+     *
+     * @return string
+     */
+    public function getLabel()
+    {
+        // TODO: Implement getLabel() method.
+    }
 }

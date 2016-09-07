@@ -3,7 +3,7 @@
 namespace TonicHealthCheck\Check;
 
 /**
- * Interface CheckCollectionInterface
+ * Interface CheckCollectionInterface.
  */
 interface CheckCollectionInterface
 {

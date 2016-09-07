@@ -2,10 +2,13 @@
 
 namespace TonicHealthCheck\Check;
 
+use ZendDiagnostics\Check\CheckInterface as ZendDiagnosticsCheckInterface;
+use ZendDiagnostics\Result\ResultInterface;
+
 /**
- * Class AbstractCheck
+ * Class AbstractCheck.
  */
-interface CheckInterface
+interface CheckInterface extends ZendDiagnosticsCheckInterface
 {
     const CHECK_NODE_DEFAULT = 'main';
     const COMPONENT = 'noname';
@@ -43,7 +46,7 @@ interface CheckInterface
     public function check();
 
     /**
-     * @return CheckResult
+     * @return ResultInterface
      */
     public function performCheck();
 }

@@ -5,21 +5,21 @@ namespace TonicHealthCheck\Tests\Check;
 use PHPUnit_Framework_TestCase;
 use TonicHealthCheck\Check\CheckException;
 use TonicHealthCheck\Check\CheckResult;
+use TonicHealthCheck\Check\ResultInterface;
 
 /**
- * Class AbstractCheckTest
+ * Class AbstractCheckTest.
  */
 class AbstractCheckTest extends PHPUnit_Framework_TestCase
 {
     /**
-     * test all getters
+     * test all getters.
      */
     public function testGetters()
     {
         $nodeName = 'testnode';
 
         $checkConcreteMock = new CheckConcreteMock($nodeName);
-
 
         $this->assertEquals(CheckConcreteMock::COMPONENT, $checkConcreteMock->getCheckComponent());
 
@@ -34,9 +34,8 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
         $this->assertRegExp('#'.$checkConcreteMock->getCheckNode().'.'.$checkConcreteMock->getCheckGroup().'.'.$checkConcreteMock->getCheckComponent().'.'.$checkConcreteMock->getCheckIdent().'#', $checkConcreteMock->getIndent());
     }
 
-
     /**
-     * test check
+     * test check.
      */
     public function testCheckOk()
     {
@@ -45,13 +44,13 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
         $checkConcreteMock = new CheckConcreteMock($nodeName);
         $checkResult = $checkConcreteMock->performCheck();
 
-        self::assertEquals(CheckResult::STATUS_OK, $checkResult->getStatus());
+        self::assertEquals(ResultInterface::STATUS_OK, $checkResult->getStatus());
         self::assertEquals(null, $checkResult->getError());
         self::assertEquals(true, $checkResult->isOk());
     }
 
     /**
-     * test check
+     * test check.
      */
     public function testCheckFail()
     {
@@ -71,7 +70,7 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * test check
+     * test check.
      */
     public function testCheckFailZeroCode()
     {

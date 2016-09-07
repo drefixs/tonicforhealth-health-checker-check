@@ -3,12 +3,10 @@
 namespace TonicHealthCheck\Check;
 
 /**
- * Class CheckResult
+ * Class AbstractResult.
  */
-class CheckResult
+abstract class AbstractResult implements ResultInterface
 {
-    const STATUS_OK = 0;
-
     /**
      * @var int
      */
@@ -29,25 +27,6 @@ class CheckResult
     {
         $this->setStatus($status);
         $this->setError($error);
-    }
-
-    /**
-     * @return CheckResult
-     */
-    public static function okResult()
-    {
-        return new self(static::STATUS_OK);
-    }
-
-    /**
-     * @param int            $status
-     * @param CheckException $error
-     *
-     * @return CheckResult
-     */
-    public static function errorResult($status, CheckException $error)
-    {
-        return new self($status, $error);
     }
 
     /**
@@ -72,6 +51,30 @@ class CheckResult
     public function isOk()
     {
         return $this->getStatus() == static::STATUS_OK;
+    }
+
+    /**
+     * Get message related to the result.
+     *
+     * @return string
+     */
+    public function getMessage()
+    {
+        if ($this->isOk()) {
+            return '';
+        }
+
+        return $this->getError()->getMessage();
+    }
+
+    /**
+     * Get detailed info on the test result (if available).
+     *
+     * @return mixed|null
+     */
+    public function getData()
+    {
+        return $this->getStatus();
     }
 
     /**
