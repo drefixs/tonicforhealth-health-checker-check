@@ -40,9 +40,9 @@ class WeekendCheck extends AbstractCheck
     }
 
     /**
-     * @return bool
+     * @throws giCheckException
      */
-    public function check()
+    public function performCheck()
     {
         if ($this->isNotWeekend(date())) {
             throw new CheckException('Unfortunately weekend isn\'t today.');
@@ -57,7 +57,7 @@ class WeekendCheck extends AbstractCheck
 
 $WeekendCheckI = new WeekendCheck('testnode');
 
-$result = $WeekendCheckI->performCheck();
+$result = $WeekendCheckI->check();
 
 if (!$result->isOk()) {
     echo $result->getError()->getMessage();

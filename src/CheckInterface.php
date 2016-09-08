@@ -45,7 +45,7 @@ interface CheckInterface extends ZendDiagnosticsCheckInterface
     public function check();
 
     /**
-     * @return bool
+     * @throws  CheckException
      */
     public function performCheck();
 }
