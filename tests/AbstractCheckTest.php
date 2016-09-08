@@ -2,9 +2,11 @@
 
 namespace TonicHealthCheck\Tests\Check;
 
+use Exception;
 use PHPUnit_Framework_TestCase;
 use TonicHealthCheck\Check\CheckException;
 use TonicHealthCheck\Check\CheckResult;
+use TonicHealthCheck\Check\CheckUnexpectedException;
 use TonicHealthCheck\Check\ResultInterface;
 
 /**
@@ -42,11 +44,13 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
         $nodeName = 'testnode';
 
         $checkConcreteMock = new CheckConcreteMock($nodeName);
-        $checkResult = $checkConcreteMock->performCheck();
+        $checkResult = $checkConcreteMock->check();
 
         self::assertEquals(ResultInterface::STATUS_OK, $checkResult->getStatus());
         self::assertEquals(null, $checkResult->getError());
         self::assertEquals(true, $checkResult->isOk());
+        self::assertEquals(ResultInterface::STATUS_OK, $checkResult->getData());
+        self::assertEquals('', $checkResult->getMessage());
     }
 
     /**
@@ -62,11 +66,13 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
         $exception = new CheckException($exceptionMsg, $exceptionCode);
 
         $checkConcreteMock = new CheckConcreteMock($nodeName, $exception);
-        $checkResult = $checkConcreteMock->performCheck();
+        $checkResult = $checkConcreteMock->check();
 
         self::assertEquals($exceptionCode, $checkResult->getStatus());
         self::assertEquals($exception, $checkResult->getError());
         self::assertEquals(false, $checkResult->isOk());
+        self::assertEquals($exceptionCode, $checkResult->getData());
+        self::assertEquals($exception->getMessage(), $checkResult->getMessage());
     }
 
     /**
@@ -82,10 +88,39 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
         $exception = new ConcreteCheckException($exceptionMsg, $exceptionCode);
 
         $checkConcreteMock = new CheckConcreteMock($nodeName, $exception);
-        $checkResult = $checkConcreteMock->performCheck();
+        $checkResult = $checkConcreteMock->check();
 
         self::assertEquals(-1, $checkResult->getStatus());
         self::assertEquals($exception, $checkResult->getError());
         self::assertEquals(false, $checkResult->isOk());
+    }
+
+    public function testCheckUnexpectedException()
+    {
+        $nodeName = 'testnode';
+
+        $exceptionMsg = 'Unexpected error msg text';
+        $exceptionCode = 0;
+
+        $exception = new Exception($exceptionMsg, $exceptionCode);
+
+        $checkConcreteMock = new CheckConcreteMock($nodeName, $exception);
+        $checkResult = $checkConcreteMock->check();
+
+        self::assertEquals(-1, $checkResult->getStatus());
+        self::assertInstanceOf(CheckUnexpectedException::class, $checkResult->getError());
+        self::assertEquals(false, $checkResult->isOk());
+    }
+
+    public function testLabel()
+    {
+        $nodeName = 'testnode';
+        $checkConcreteMock = new CheckConcreteMock($nodeName);
+
+        self::assertEquals(
+            $checkConcreteMock->getIndent(),
+            $checkConcreteMock->getLabel()
+        );
+
     }
 }

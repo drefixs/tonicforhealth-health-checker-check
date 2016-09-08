@@ -2,6 +2,8 @@
 
 namespace TonicHealthCheck\Check;
 
+use Exception;
+
 /**
  * Class AbstractCheck.
  */
@@ -88,13 +90,16 @@ abstract class AbstractCheck implements CheckInterface
     /**
      * @return ResultInterface
      */
-    public function performCheck()
+    public function check()
     {
         try {
-            $this->check();
+            $this->performCheck();
             $checkResult = new Success();
-        } catch (CheckException $error) {
-            $checkResult = new Failure($error->getCode(), $error);
+        } catch (CheckException $exception) {
+            $checkResult = new Failure($exception->getCode(), $exception);
+        } catch (Exception $exception) {
+            $errorUnexpected  = CheckUnexpectedException::catchUnexpectedError(__CLASS__, __METHOD__, $exception);
+            $checkResult = new Failure($errorUnexpected->getCode(), $errorUnexpected);
         }
 
         $this->setLastCheckResult($checkResult);

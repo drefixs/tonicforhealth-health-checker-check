@@ -3,7 +3,6 @@
 namespace TonicHealthCheck\Check;
 
 use ZendDiagnostics\Check\CheckInterface as ZendDiagnosticsCheckInterface;
-use ZendDiagnostics\Result\ResultInterface;
 
 /**
  * Class AbstractCheck.
@@ -41,12 +40,12 @@ interface CheckInterface extends ZendDiagnosticsCheckInterface
     public function getIndent();
 
     /**
-     * @return bool
+     * @return \TonicHealthCheck\Check\ResultInterface
      */
     public function check();
 
     /**
-     * @return ResultInterface
+     * @return bool
      */
     public function performCheck();
 }
