@@ -76,7 +76,12 @@ abstract class AbstractCheck implements CheckInterface
      */
     public function getLabel()
     {
-        return $this->getIndent();
+        return sprintf(
+            '%s "%s" %s',
+            $this->getCheckComponent(),
+            $this->getCheckNode(),
+            $this->getCheckIdent()
+        );
     }
 
     /**

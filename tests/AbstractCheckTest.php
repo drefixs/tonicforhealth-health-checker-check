@@ -118,7 +118,7 @@ class AbstractCheckTest extends PHPUnit_Framework_TestCase
         $checkConcreteMock = new CheckConcreteMock($nodeName);
 
         self::assertEquals(
-            $checkConcreteMock->getIndent(),
+            'Concrete "testnode" concrete-mock-check',
             $checkConcreteMock->getLabel()
         );
 
